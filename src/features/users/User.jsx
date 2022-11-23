@@ -8,10 +8,10 @@ const User = () => {
   const renderCard = () =>
     users.map((users) => (
       <div key={users.id}>
-        <div className="bg-gray-900 p-5 flex items-center justify-between rounded-md hover:bg-gray-300 cursor-pointer ">
+        <div className="bg-gray-500 p-5 flex items-center justify-between rounded-md hover:bg-gray-300 cursor-pointer ">
           <div>
-            <h3 className="font-bold text-lg text-gray-700">{users.name}</h3>
-            <span className="font-normal text-gray-600">{users.lastname}</span>
+            <h3 className="font-bold text-lg text-black">{users.name}</h3>
+            <span className="font-normal text-black">{users.lastname}</span>
           </div>
         </div>
       </div>

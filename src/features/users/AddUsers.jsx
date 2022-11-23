@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 import uuid from "react-uuid";
+import { useForm } from "react-hook-form";
 import Buttons from "../../components/Buttons";
 import Textfield from "../../components/Textfield";
 import { addUsers } from "./userSlice";
+import Error from "../../components/Error";
 
 const AddUsers = () => {
   const dispatch = useDispatch();
@@ -14,40 +16,46 @@ const AddUsers = () => {
     name: "",
     lastname: "",
   });
-  const handleAddUser = () => {
-    if (value.name.length >= 8 && value.lastname.length >= 5) {
-      setValue({ name: "", lastname: "" });
-      navigate("/");
-      dispatch(
-        addUsers({
-          id: uuid(),
-          name: value.name,
-          lastname: value.lastname,
-        })
-      );
-    } else {
-      alert("Please enter the valid minum 8 letter word length");
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleAddUser = (data) => {
+    setValue({ name: "", lastname: "" });
+    navigate("/");
+    dispatch(
+      addUsers({
+        id: uuid(),
+        name: data.name,
+        lastname: data.lastname,
+      })
+    );
   };
   const handlechange = (e) => {
     setValue({ ...value, name: e.target.value });
   };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(handleAddUser)}>
         <Textfield
-          label="Name"
+          label="name"
           value={value.name}
           onChange={handlechange}
           inputProps={{ type: "text", placeholder: "First Name" }}
+          register={register}
         />
+        f
+        <Error errors={errors} fieldName={"name"} />
         <Textfield
-          label="Last Name"
+          label="lastname"
+          register={register}
           inputProps={{ type: "text", placeholder: "Last Name" }}
           onChange={(e) => setValue({ ...value, lastname: e.target.value })}
           value={value.lastname}
         />
-
+        <Error errors={errors} fieldName={"lastname"} />
         <Buttons onClick={handleAddUser}>Submit</Buttons>
       </form>
     </>

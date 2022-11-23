@@ -6,7 +6,7 @@ const Buttons = ({ onClick, children }) => {
       <button
         type="submit"
         className="bg-indigo-500 text-white py-2 px-6 my-10 rounded hover:bg-indigo-800"
-        onClick={onClick}
+        // onClick={onClick}
       >
         {children}
       </button>
